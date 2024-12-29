@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notesdbisar/models/note_database.dart';
 import 'package:notesdbisar/pages/note_page.dart';
+import 'package:notesdbisar/pages/settings_page.dart';
 import 'package:notesdbisar/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: NotePage(),
       theme: Provider.of<ThemeProvider>(context).theme,
+      routes: {
+        '/settings_page': (context) => SettingsPage(),
+      },
     );
   }
 }
