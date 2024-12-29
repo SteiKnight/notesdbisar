@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:notesdbisar/themes/theme.dart';
 
 class ThemeProvider extends ChangeNotifier {
   //current theme
-  ThemeMode _theme = ThemeMode.light;
+  ThemeData _theme = lightMode;
 
   //get theme
-  ThemeMode get theme => _theme;
+  ThemeData get theme => _theme;
 
   //change theme
   void toggleTheme() {
     if (_theme == ThemeMode.light) {
-      _theme = ThemeMode.dark;
+      _theme = darkMode;
     } else {
-      _theme = ThemeMode.light;
+      _theme = lightMode;
     }
 
     notifyListeners();

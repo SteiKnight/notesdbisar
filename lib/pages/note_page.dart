@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notesdbisar/models/note.dart';
 import 'package:notesdbisar/models/note_database.dart';
+import 'package:notesdbisar/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class NotePage extends StatefulWidget {
@@ -156,46 +157,48 @@ class _NotePageState extends State<NotePage> {
 
     List<Note> currentNotes = noteDatabase.currentNotes;
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Notes'),
-          centerTitle: true,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: createNote,
-          child: Icon(Icons.add),
-        ),
-        body: ListView.builder(
-          itemCount: currentNotes.length,
-          itemBuilder: (context, index) {
-            //individual note
-            final note = currentNotes[index];
+    return Consumer<ThemeProvider>(
+      builder: (context, value, child) => Scaffold(
+          appBar: AppBar(
+            title: Text('Notes'),
+            centerTitle: true,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: createNote,
+            child: Icon(Icons.add),
+          ),
+          body: ListView.builder(
+            itemCount: currentNotes.length,
+            itemBuilder: (context, index) {
+              //individual note
+              final note = currentNotes[index];
 
-            //return a tile;
-            return ListTile(
-              title: Text(note.text),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  //edit button
-                  IconButton(
-                      onPressed: () => updateNote(note),
-                      icon: Icon(
-                        Icons.edit,
-                        color: Colors.grey,
-                      )),
+              //return a tile;
+              return ListTile(
+                title: Text(note.text),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    //edit button
+                    IconButton(
+                        onPressed: () => updateNote(note),
+                        icon: Icon(
+                          Icons.edit,
+                          color: value.theme.colorScheme.inversePrimary,
+                        )),
 
-                  //delete button
-                  IconButton(
-                      onPressed: () => deleteNote(note.id),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.grey,
-                      )),
-                ],
-              ),
-            );
-          },
-        ));
+                    //delete button
+                    IconButton(
+                        onPressed: () => deleteNote(note.id),
+                        icon: Icon(
+                          Icons.delete,
+                          color: value.theme.colorScheme.inversePrimary,
+                        )),
+                  ],
+                ),
+              );
+            },
+          )),
+    );
   }
 }
